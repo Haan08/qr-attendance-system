@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Course Attendance Report</title>
+<style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      position: relative;
+      overflow-x: hidden;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+    header {
+      /* background-color: #343a40; */
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      font-family: 'Arial', sans-serif;
+
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+    }
+
+    header h1 {
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 18px;
+      color: #ccc;
+    }
+
+.bg-glow {
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(98, 60, 132, 0.15), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.bg-glow-right {
+  position: absolute;
+  bottom: -120px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(127, 46, 203, 0.15), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+
+.highlight {
+  color: white;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  color: #f4f4ff;
+  padding: 2.5rem 3rem;
+  width: 210px;
+  /* height: 90px; */
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  border: 1px solid white;
+  box-shadow: 0 0 15px rgba(235, 233, 237, 0.2);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+}
+    .menu-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start; /* left aligned */
+      position: relative;
+    }
+    .menu-btn {
+      /* background-color: #f1eaea; */
+       background: rgba(255, 255, 255, 0.1);
+       backdrop-filter: blur(15px);
+      color:white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+         transition: all 0.3s ease;
+       border: 1px solid rgba(205, 184, 184, 0.1);
+      box-shadow: 0 0 15px rgba(188, 144, 229, 0.2);
+      
+    }
+        .menu-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      border-color:white;
+    }
+
+    .menu-links {
+      display: flex;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    .menu-links a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);;
+      padding: 10px 18px;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-20px) scale(0.7);
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+        
+    }
+
+    .menu-links.show a {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .menu-links.show a:nth-child(1) { transition-delay: 0.2s; }
+    .menu-links.show a:nth-child(2) { transition-delay: 0.5s; }
+    .menu-links.show a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links.show a:nth-child(4) { transition-delay: 0.8s; }
+    .menu-links.show a:nth-child(5) { transition-delay: 1.1s; }
+
+    .menu-links:not(.show) a:nth-child(1) { transition-delay: 1.1s; }
+    .menu-links:not(.show) a:nth-child(2) { transition-delay: 0.8s; }
+    .menu-links:not(.show) a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links:not(.show) a:nth-child(4) { transition-delay: 0.5s; }
+    .menu-links:not(.show) a:nth-child(5) { transition-delay: 0.2s; }
+
+    .menu-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      transform: translateY(-2px) scale(1.05);
+      border-color:white;
+    }
+        nav {
+      /* background-color: #343a40; */
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      /* background-color: #ff6f61; */
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #e85c50;
+    }
+
+     .top-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .top-logo img {
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+    }
+
+         .section-container {
+      flex: 1;
+      min-width: 320px;
+      margin: 15px;
+    }
+        .main-container {
+      display: flex;
+      justify-content: center;     
+      align-items: flex-start;     
+      gap: 40px;                  
+      flex-wrap: wrap;           
+    }
+
+    .card button {
+  background: none;
+  border: none;
+  outline: none;
+  color:white;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 30px 0;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  text-decoration: none; /* no underline */
+}
+
+
+.cardss {
+  background: rgba(228, 220, 220, 0.1);
+  backdrop-filter: blur(15px);
+  color: #f4f4ff;
+  padding: 2.5rem 3rem;
+  width: 250px;
+  /* height: 5px; */
+  /* font-size: 2rem; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  border: 1px solid rgba(237, 213, 213, 0.1);
+  box-shadow: 0 0 15px rgba(249, 248, 252, 0.2);
+  transition: all 0.3s ease;
+}
+
+.cardss:hover {
+  background: white;
+  box-shadow: 0 0 25px white;
+}
+    footer {
+      text-align: center;
+      padding: 10px;
+      margin-top: 85px;
+    }
+    .scrolling-text {
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scrolling-text p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-text 15s linear infinite;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+  </style>
+</head>
+<body>
+  <div id="particles-js"></div>
+    <div class="top-logo">
+  <a href="{{ url_for('home') }}">
+    <img class="spin-horizontal"  src="{{ url_for('static', filename='ATTENDO.png') }}" alt="Logo" />
+  </a>
+</div>
+  <nav>
+    <button id="menu-btn" class="menu-btn">Menu</button>
+    <div id="menu-links" class="menu-links">
+      <a href="{{ url_for('profile') }}">Profile</a>
+      <a href="{{ url_for('view_attendance') }}">View Attendance</a>
+      <a href="{{ url_for('settings') }}">Settings</a>
+      <a href="{{ url_for('home') }}">Log Out</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Quick Attendance System</h1>
+    <p>Select course to see daily attendance </p>
+  </header>
+  <main class="main-container" id="course-container" role="main" aria-live="polite">
+    <!-- <section class="section-container" aria-label="Bachelor's Courses"> -->
+<section class="cards">      
+<div class="card" tabindex="0" data-section="MSC" role="button" aria-pressed="false">
+  <button id="UG" onclick="location.href='{{ url_for('report', course_name='MSC') }}'">MSC</button>
+</div>
+</section>
+<section class="cards"> 
+<div class="card" tabindex="0" data-section="MCA" role="button" aria-pressed="false">
+    <button id="UG" onclick="location.href='{{ url_for('report', course_name='MCA') }}'">MCA</button>
+</div>
+</section>
+<section class="cards"> 
+<div class="card" tabindex="0" data-section="MBA" role="button" aria-pressed="false">
+    <button id="UG" onclick="location.href='{{ url_for('report', course_name='MBA') }}'">MBA</button>
+</div>
+</section>
+<section class="cards"> 
+<div class="card" tabindex="0" data-section="M.com" role="button" aria-pressed="false">
+    <button id="UG" onclick="location.href='{{ url_for('report', course_name='M.com') }}'">M.com</button>
+</div>
+</section>
+</main>
+
+
+  <footer>
+  <div class="scrolling-text">
+    <p>Copyright © 2025 Q-Mark. All rights reserved.</p>
+  </div>
+  </footer>
+  <script>
+            function selectCourse(courseName) {
+      window.location.href = `report.html?course=${encodeURIComponent(courseName)}`;
+    }
+       const menuBtn = document.getElementById("menu-btn");
+    const menuLinks = document.getElementById("menu-links");
+
+    menuBtn.addEventListener("click", () => {
+      menuLinks.classList.toggle("show");
+    });
+  </script>
+      <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": { "enable": true, "value_area": 800 }
+        },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 3,
+          "direction": "none",
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "repulse": { "distance": 100 },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+</body>
+</html>
+
+

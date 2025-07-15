@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teacher Profile</title>
+  <style>
+#profile-photo {
+  display: block; 
+  margin: 0 auto; 
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid rgb(16, 7, 7);
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(244, 242, 242, 0.3);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+  #profile-photo:hover {
+    box-shadow: 0 6px 25px rgba(238, 237, 239, 0.5);
+  }
+    main {
+      flex: 1;
+      display: flex;
+      max-width: 1000px;
+      margin: 40px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(186, 20, 219, 0.15);
+      overflow: hidden;
+    }
+
+    /* PROFILE DETAILS */
+
+        /* Container to hold the profile sections */
+.profile-container {
+  display: flex;
+  gap: 30px; 
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap; 
+  padding: 20px;
+  /* width:1000px; */
+}
+    .profile-details1 {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      padding: 20px;
+      width: 400px
+    }
+
+    .profile-details {
+      flex: 1;
+      padding: 40px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+     background-color: #ffffff10; /* semi-transparent */
+      padding: 60px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      /* width:px */
+    }
+
+    .profile-details label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .profile-details input {
+      width: 700px;
+      padding: 12px 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1.5px solid #ccc;
+      margin-bottom: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    .profile-details input:focus {
+      outline: none;
+      border-color: #a30fd4;
+      box-shadow: 0 0 8px rgba(177, 148, 202, 0.6);
+      /* padding:60px; */
+      /* width: 100px; */
+    }
+
+    .profile-details .optional {
+      font-size: 13px;
+      color: #999;
+      font-style: italic;
+      margin-top: -16px;
+      margin-bottom: 16px;
+    }
+
+    .profile-details button {
+      align-self: flex-start;
+      background-color: #343a40;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-details button:hover {
+      background-color: #222;
+    }
+
+   /* RESPONSIVE */
+    @media (max-width: 800px) {
+      main {
+        flex-direction: column;
+        max-width: 95%;
+        margin: 20px auto;
+      }
+
+      .profile-details {
+        padding: 20px;
+      }
+    }
+
+.profile-details1 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#profile-name {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: white; /* Change to match your theme */
+}
+    
+    footer {
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+    .scrolling-text {
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scrolling-text p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-text 15s linear infinite;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+   * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      position: relative;
+      overflow-x: hidden;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 40px;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 40px; /* Adds space above header */
+       font-weight: 500;
+    }
+
+    header h1 {
+      font-size: 50px;
+      margin-bottom: 10px;
+       font-weight: 600;
+      
+    }
+
+    header p {
+      font-size: 18px;
+      color: #ccc;
+      /* padding: 10px 10px; */
+    }
+
+    
+.bg-glow {
+  position: absolute;
+  top: -120px;
+  left: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(98, 60, 132, 0.15), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+.bg-glow-right {
+  position: absolute;
+  bottom: -120px;
+  right: -100px;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(127, 46, 203, 0.15), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(80px);
+}
+
+
+.highlight {
+  color: white;
+}
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+  
+}
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  color: #f4f4ff;
+  padding: 2.5rem 3rem;
+  width: 260px;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  border: 1px solid rgba(237, 213, 213, 0.1);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: transform 0.3s ease;
+  border-radius: 10px;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  height: 100%; 
+}
+
+.card:hover {
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      transform: translateY(-5px);
+}
+    .menu-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start; /* left aligned */
+      position: relative;
+    }
+    .menu-btn {
+      /* background-color: #f1eaea; */
+       background: rgba(255, 255, 255, 0.1);
+       backdrop-filter: blur(15px);
+      color:white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+         transition: all 0.3s ease;
+       border: 1px solid rgba(205, 184, 184, 0.1);
+      box-shadow: 0 0 15px rgba(188, 144, 229, 0.2);
+      
+    }
+        .menu-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      border-color:white;
+    }
+
+    .menu-links {
+      display: flex;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    .menu-links a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);;
+      padding: 10px 18px;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-20px) scale(0.7);
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+        
+    }
+
+    .menu-links.show a {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .menu-links.show a:nth-child(1) { transition-delay: 0.2s; }
+    .menu-links.show a:nth-child(2) { transition-delay: 0.5s; }
+    .menu-links.show a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links.show a:nth-child(4) { transition-delay: 0.8s; }
+    .menu-links.show a:nth-child(5) { transition-delay: 1.1s; }
+
+    .menu-links:not(.show) a:nth-child(1) { transition-delay: 1.1s; }
+    .menu-links:not(.show) a:nth-child(2) { transition-delay: 0.8s; }
+    .menu-links:not(.show) a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links:not(.show) a:nth-child(4) { transition-delay: 0.5s; }
+    .menu-links:not(.show) a:nth-child(5) { transition-delay: 0.2s; }
+
+    .menu-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      transform: translateY(2px) scale(1.05);
+      border-color:white;
+    }
+        nav {
+      /* background-color: #343a40; */
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      /* background-color: #ff6f61; */
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #e85c50;
+    }
+
+    .top-logo {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .top-logo img {
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+    }
+
+/* @keyframes flipHorizontal {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.spin-horizontal {
+  animation: flipHorizontal 7s linear infinite;
+  transform-style: preserve-3d;
+} */
+
+         .section-container {
+      flex: 1;
+      min-width: 320px;
+      margin: 15px;
+    }
+        .main-container {
+      display: flex;
+      justify-content: center;     
+      align-items: flex-start;     
+      gap: 20px;                  
+      flex-wrap: wrap;           
+    }
+
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      margin-top: 85px;
+    }
+    .scrolling-text {
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scrolling-text p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-text 15s linear infinite;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+    .container {
+      padding: 20px;
+      text-align: center;
+      color: #333;
+      background-color: #fff;
+      margin: 40px auto;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    }
+
+    .hero {
+      padding: 50px 10px;
+      text-align: center;
+      margin-top:-45px;
+       font-weight: 500;
+
+    }
+
+    .hero h2 {
+      font-size: 40px;
+      margin-bottom: 20px;
+       font-weight: 600;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    /* .card h3 {
+      margin-bottom: 20px;
+      color: white;
+      font-size: 15px;
+    }
+
+    .card p {
+      font-size: 15px;
+      line-height: 1.5;
+      color:white;
+    }
+     @media (max-width: 768px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    } */
+
+    .icon-white {
+  filter: brightness(0) invert(1);
+}
+
+  </style>
+</head>
+<body>
+<div id="particles-js"></div>
+    <div class="top-logo">
+  <a href="{{ url_for('home') }}">
+    <img class="spin-horizontal"  src="{{ url_for('static', filename='ATTENDO.png') }}" alt="Logo" />
+  </a>
+</div>
+  <nav>
+  <button id="menu-btn" class="menu-btn">Menu</button>
+  <div id="menu-links" class="menu-links">
+    <a href="{{ url_for('take_attendance') }}">Take Attendance</a>
+    <a href="{{ url_for('view_attendance') }}">View Attendance</a>
+    <a href="{{ url_for('settings') }}">Settings</a>
+    <a href="{{ url_for('home') }}">Log Out</a>
+  </div>
+</nav>
+  <header>
+    <h1>Profile</h1>
+    <p>Manage your account and professional information in Settings</p>
+  </header>
+
+<div class="profile-container">
+    <section class="profile-details1">
+      <img id="profile-photo" src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"alt="Profile Photo" title="Click to change photo" class="icon-white"/>
+      <h3 id="profile-name"></h3>
+    </section>
+  <section class="profile-details">
+    <form id="profile-form" novalidate>
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="Name" value="{{ user.full_name or '' }}" readonly/>
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" value="{{ user.email or '' }}" readonly />
+
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" value="{{ user.phone_number or '' }}" readonly/>
+
+    <label for="employee-id">Employee ID</label>
+    <input type="text" id="employee-id" name="employee-id" value="{{ user.employee_id or '' }}" readonly />
+
+    <label for="department">Department</label>
+    <input type="text" id="department" name="department" value="{{ user.department or '' }}" readonly />
+
+    <label for="designation">Designation</label>
+    <input type="text" id="designation" name="designation" value="{{ user.designation or '' }}" readonly />
+    </form>
+</section>
+
+
+
+  <footer>
+     <div class="scrolling-text">
+    <p>Copyright © 2025 Q-Mark. All rights reserved</p>
+  </div>
+  </footer>
+
+  <script>
+        const menuBtn = document.getElementById("menu-btn");
+    const menuLinks = document.getElementById("menu-links");
+
+    menuBtn.addEventListener("click", () => {
+      menuLinks.classList.toggle("show");
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": { "enable": true, "value_area": 800 }
+        },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 3,
+          "direction": "none",
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "repulse": { "distance": 100 },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+
+
+</body>
+</html>

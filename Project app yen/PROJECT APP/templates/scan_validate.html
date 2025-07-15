@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validate Location</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <main class="bg-white p-8 rounded-lg shadow-md text-center w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4">Validating your Location...</h2>
+        <p class="text-gray-600 mb-4">Please allow location access to proceed.</p>
+        <p id="message" class="text-red-600 font-semibold"></p>
+    </main>
+
+    <script>
+        function showMessage(msg, isError = true) {
+            const el = document.getElementById('message');
+            el.textContent = msg;
+            el.style.color = isError ? 'red' : 'green';
+        }
+
+        function validateWithLocation(lat, lon) {
+            fetch('/validate_scan/{{ qr_id }}', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ latitude: lat, longitude: lon })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = data.redirect_url;
+                } else {
+                    showMessage(data.message || "Access Denied.");
+                }
+            })
+            .catch(err => {
+                showMessage("Error: " + err.message);
+            });
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => validateWithLocation(pos.coords.latitude, pos.coords.longitude),
+                (err) => showMessage("Location access denied: " + err.message)
+            );
+        } else {
+            showMessage("Geolocation not supported in this browser.");
+        }
+
+        fetch(`/validate_scan/${qr_id}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ latitude: lat, longitude: lon })
+})
+
+    </script>
+</body>
+</html>

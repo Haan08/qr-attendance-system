@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teacher Profile Settings</title>
+    <style>
+    /* Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      position: relative;
+      overflow-x: hidden;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 40px;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 40px; /* Adds space above header */
+       font-weight: 500;
+    }
+
+    header h1 {
+      font-size: 50px;
+      margin-bottom: 10px;
+       font-weight: 600;
+      
+    }
+
+    header p {
+      font-size: 18px;
+      color: #ccc;
+      /* padding: 10px 10px; */
+    }
+
+    .menu-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start; /* left aligned */
+      position: relative;
+    }
+    .menu-btn {
+      /* background-color: #f1eaea; */
+       background: rgba(255, 255, 255, 0.1);
+       backdrop-filter: blur(15px);
+      color:white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+         transition: all 0.3s ease;
+       border: 1px solid rgba(205, 184, 184, 0.1);
+      box-shadow: 0 0 15px rgba(188, 144, 229, 0.2);
+      
+    }
+
+    .menu-links {
+      display: flex;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    .menu-links a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);;
+      padding: 10px 18px;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-20px) scale(0.7);
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+        
+    }
+
+    .menu-links.show a {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .menu-links.show a:nth-child(1) { transition-delay: 0.2s; }
+    .menu-links.show a:nth-child(2) { transition-delay: 0.5s; }
+    .menu-links.show a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links.show a:nth-child(4) { transition-delay: 0.8s; }
+    .menu-links.show a:nth-child(5) { transition-delay: 1.1s; }
+
+    .menu-links:not(.show) a:nth-child(1) { transition-delay: 1.1s; }
+    .menu-links:not(.show) a:nth-child(2) { transition-delay: 0.8s; }
+    .menu-links:not(.show) a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links:not(.show) a:nth-child(4) { transition-delay: 0.5s; }
+    .menu-links:not(.show) a:nth-child(5) { transition-delay: 0.2s; }
+
+    .menu-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      transform: translateY(-2px) scale(1.05);
+      border-color:white;
+    }
+        .menu-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      border-color:white;
+    }
+        nav {
+      /* background-color: #343a40; */
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      /* background-color: #ff6f61; */
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #e85c50;
+    }
+
+        .top-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000; /* Make sure it stays on top */
+}
+
+.top-logo img {
+  height: 70px; /* Adjust size as needed */
+  width: 70px;
+  object-fit: contain;
+  border-radius: 5rem;
+}
+
+    /* #profile-photo {
+      display: block;
+      margin: 0 auto 20px auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 4px solid white;
+      object-fit: cover;
+      box-shadow: 0 4px 15px rgba(102, 4, 148, 0.3);
+      cursor: pointer;
+      transition: box-shadow 0.3s ease;
+    }
+
+    #profile-photo:hover {
+      box-shadow: 0 6px 25px rgba(106, 37, 115, 0.5);
+    } */
+
+    #profile-photo {
+  display: block; 
+  margin: 0 auto; 
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 4px solid rgb(16, 7, 7);
+  object-fit: cover;
+  box-shadow: 0 4px 15px rgba(244, 242, 242, 0.3);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+  #profile-photo:hover {
+    box-shadow: 0 6px 25px rgba(238, 237, 239, 0.5);
+  }
+      .icon-white {
+  filter: brightness(0) invert(1);
+}
+
+    /* MAIN CONTAINER */
+    main {
+      flex: 1;
+      display: flex;
+      /* max-width: 1000px; */
+      margin: 40px auto;
+      border-radius: 12px;
+      overflow: hidden;
+      min-height: 600px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+        background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+         color: #f4f4ff;
+  border: 1px solid white;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
+  width: 880px;
+  
+    }
+
+
+    /* SIDEBAR */
+    .sidebar {
+      width:300px;
+      /* background-color:#4e2879; */
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 10px;
+        /* background: rgba(108, 8, 133, 0.1); */
+  backdrop-filter: blur(15px);
+  color: #f4f4ff;
+  border: 1px solid white;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
+    }
+
+    .sidebar button {
+      background: black;
+      border: white;
+      color: white;
+      font-size: 18px;
+      padding: 12px 15px;
+      text-align: left;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+
+    .sidebar button:hover,
+    .sidebar button.active {
+      background-color: #14031a;
+      font-weight: 700;
+      border-color:#fff;
+      border-radius:2rem ;
+      text-align: center;
+    }
+    
+
+    /* CONTENT AREA */
+    .content {
+      flex: 1;
+      padding: 40px 50px;
+      color: #333;
+      overflow-y: auto;
+      width:800px;
+      display: flex;
+      flex-direction: column;
+      padding: 40px;
+      gap: 30px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .content section {
+      display: none;
+    }
+
+    .content section.active {
+      display: block;
+    }
+
+    /* FORM ELEMENTS */
+    label {
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+      color:white;
+    }
+
+    input {
+      width: 500px;
+      padding: 10px 15px;
+      background-color: #d0cad7;
+      font-size: 16px;
+      border-radius: 8px;
+      text-decoration-color:white;
+      border: 1.5px solid #ccc;
+      margin-bottom: 20px;
+        border: 1px solid rgba(237, 213, 213, 0.1);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  /* transition: all 0.3s ease; */
+      /* transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease; */
+    }
+
+    input:focus {
+      outline: none;
+      border-color:white;
+      box-shadow: 0 0 8px rgba(241, 234, 233, 0.6);
+    }
+    input::placeholder {
+  color:white;  /* Replace with your desired color */
+  opacity: 1;      /* Ensures color appears as defined */
+}
+    button.submit-btn {
+      background-color:#0b0413;
+      color: white;
+      padding: 12px 30px;
+      border: none;
+      font-weight: 700;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    button.submit-btn:hover {
+      background-color:#4e2879;
+    }
+
+    /* Toggle switch style for dark mode */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
+
+    .switch input { 
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ede8e8;
+      color: #111111;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      color:#08040b;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color:#f4f2f6;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+.sidebar-dark-toggle {
+  margin-top: auto; /* Ensures it's pushed to the bottom */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* Dark Mode Theme */
+body.dark-mode {
+  background-color: #303030;
+  color: rgb(229, 225, 231);
+}
+
+body.dark-mode .sidebar {
+  background-color: rgb(239, 237, 237);
+}
+
+body.dark-mode .content {
+  background-color:rgb(103, 101, 103);
+}
+
+
+    /* RESPONSIVE */
+    @media (max-width: 800px) {
+      main {
+        flex-direction: column;
+        max-width: 95%;
+        margin: 20px auto;
+      }
+    }
+
+    footer {
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      margin-top: 40px;
+    }
+    .scrolling-text {
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.scrolling-text p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll-text 15s linear infinite;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+  
+  </style>
+</head>
+<body>
+
+        <div id="particles-js"></div>
+  <div class="top-logo">
+  <a href="{{ url_for('home') }}">
+    <img class="spin-horizontal"  src="{{ url_for('static', filename='ATTENDO.png') }}" alt="Logo" />
+  </a>
+</div>
+  <nav>
+    <button id="menu-btn" class="menu-btn">Menu</button>
+    <div id="menu-links" class="menu-links">
+      <a href="{{ url_for('profile') }}">Profile</a>
+      <a href="{{ url_for('take_attendance') }}">Take Attendance</a>
+      <a href="{{ url_for('view_attendance') }}">View Attendance</a>
+      <a href="{{ url_for('home') }}">Logout</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Profile Settings</h1>
+    <p>Manage your Profile settings and preferences</p>
+  </header>
+
+  <main>
+    <div class="sidebar">
+      <button class="active" onclick="showSection('profile')">Edit Profile</button>
+      <button onclick="showSection('password')">Change Password</button>
+      <div class="sidebar-dark-toggle">
+        <label>Dark Mode</label>
+        <label class="switch">
+          <input type="checkbox" id="darkModeToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="content">
+      <section id="profile" class="active">
+      <img id="profile-photo" src="https://cdn-icons-png.flaticon.com/512/1946/1946429.png"alt="Profile Photo" title="Click to change photo" class="icon-white"/>
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+        <!-- <h2>Profile Settings</h2> -->
+        <form method="POST">
+          <input type="hidden" name="form_type" value="profile_update">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" value="{{ user.full_name or '' }}" placeholder="Enter your name" required />
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" value="{{ user.email or '' }}" placeholder="Enter your email" required />
+
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" name="phone" value="{{ user.phone_number or '' }}" placeholder="Enter your phone number" />
+
+        <label for="employee-id">Employee ID</label>
+        <input type="text" id="employee-id" name="employee-id" value="{{ user.employee_id or '' }}" placeholder="EMP123"/>
+
+        <label for="department">Department</label>
+        <input type="text" id="department" name="department"  value="{{ user.department or '' }}" placeholder="Enter Department Name"/>
+
+        <label for="designation">Designation</label>
+        <input type="text" id="designation" name="designation" value="{{ user.designation or '' }}" placeholder="Enter Designation" />
+
+
+          <button type="submit" class="submit-btn">Save Changes</button>
+        </form>
+
+      </section>
+
+      <section id="password">
+        <h2>Change Password</h2><br>
+
+        <form method="POST">
+           <input type="hidden" name="form_type" value="password_change">
+          <label for="current-password">Current Password</label>
+          <input type="password" id="current-password" name="current-password" required />
+
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" name="new-password" />
+
+          <label for="confirm-password">Confirm New Password</label>
+          <input type="password" id="confirm-password" name="confirm-password" required />
+
+          <button type="submit" class="submit-btn">Update Password</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+      <div class="scrolling-text">
+    <p>Copyright © 2025 Q-Mark. All rights reserved</p>
+  </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const menuLinks = document.getElementById("menu-links");
+
+    menuBtn.addEventListener("click", () => {
+      menuLinks.classList.toggle("show");
+    });
+
+    function showSection(sectionId) {
+      document.querySelectorAll(".sidebar button").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      document.querySelectorAll(".content section").forEach(section => {
+        section.classList.remove("active");
+      });
+
+      document.getElementById(sectionId).classList.add("active");
+      event.target.classList.add("active");
+    }
+
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('change', function () {
+      document.body.classList.toggle('dark-mode', this.checked);
+    });
+    const profileTab = document.getElementById('profile-tab');
+    const passwordTab = document.getElementById('password-tab');
+    const profileSection = document.getElementById('profile');
+    const passwordSection = document.getElementById('password');
+
+    profileTab.addEventListener('click', () => {
+      profileTab.classList.add('active');
+      passwordTab.classList.remove('active');
+      profileSection.classList.add('active');
+      passwordSection.classList.remove('active');
+    });
+
+    passwordTab.addEventListener('click', () => {
+      passwordTab.classList.add('active');
+      profileTab.classList.remove('active');
+      passwordSection.classList.add('active');
+      profileSection.classList.remove('active');
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": { "enable": true, "value_area": 800 }
+        },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 3,
+          "direction": "none",
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "repulse": { "distance": 100 },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+
+
+</body>
+</html>
+
+

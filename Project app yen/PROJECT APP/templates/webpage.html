@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance Form</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background:#1e1e2f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+    }
+
+    .gradient-container {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(15px);
+      padding: 2rem;
+      border-radius: 1.5rem;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 0 15px rgba(188, 144, 229, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .top-logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .top-logo img {
+      height: 120px;
+      width: 120px;
+      object-fit: contain;
+      border-radius: 50%;
+      /* animation: flipHorizontal 9s linear infinite; */
+      transform-style: preserve-3d;
+    }
+
+    /* @keyframes flipHorizontal {
+      from {
+        transform: rotateY(0deg);
+      }
+      to {
+        transform: rotateY(360deg);
+      }
+    } */
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    label {
+      color: #ffffff;
+      font-weight: bold;
+      display: block;
+      font-size:medium;
+      margin-bottom: 0.5rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.6rem 1rem;
+      border-radius: 0.5rem;
+      border: 1px solid #9b89b3;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #d7bfff;
+      box-shadow: 0 0 5px rgba(231, 209, 255, 0.8);
+    }
+
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      background-color: #1e1e2f;
+      color: white;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #161319;
+    }
+
+    .form-title {
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-container">
+    <div class="top-logo">
+      <img src="{{ url_for('static', filename='ATTENDO.png') }}" alt="Logo" />
+    </div>
+
+    <div class="form-title">Enter Details For Attendance</div>
+
+    <form id="attendanceForm">
+      <div>
+        <label for="campus_id">Campus ID</label>
+        <input type="text" id="campus_id" name="campus_id" required />
+      </div>
+
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required />
+      </div>
+
+      <div>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+  document.getElementById("attendanceForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const campusid = document.getElementById("campus_id").value.trim();
+    const name = document.getElementById("name").value.trim();
+
+    if (!campusid || !name) {
+      alert("Please fill in both Campus ID and Name.");
+      return;
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const payload = {
+          campusid: campusid,
+          name: name,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        };
+
+        fetch("/validate_scan/{{ qr_id }}", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message || "Attendance marked successfully");
+
+            // Show fallback thank-you message in case tab can't close
+            document.body.innerHTML = `
+              <div style="display:flex; align-items:center; justify-content:center; height:100vh; background-color:#1e1e2f; color:white; text-align:center;">
+                <h2>✅ Attendance Marked Successfully. You can now close this tab.</h2>
+              </div>
+            `;
+
+            // Try closing the tab after 2 seconds
+            setTimeout(() => {
+              window.open('', '_self', '');
+              window.close();
+            }, 2000);
+          } else {
+            alert(data.message || "Failed to mark attendance.");
+          }
+        })
+        .catch(err => {
+          alert("Error sending data: " + err.message);
+        });
+
+      }, function(error) {
+        alert("Location access is required: " + error.message);
+      });
+    } else {
+      alert("Geolocation is not supported in this browser.");
+    }
+  });
+</script>
+
+
+</body>
+</html>

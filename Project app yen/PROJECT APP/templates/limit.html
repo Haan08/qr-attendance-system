@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Generate QR Code with Location</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      position: relative;
+      overflow-x: hidden;
+    }
+    #particles-js {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+        header {
+      text-align: center;
+      padding: 80px 40px;
+      font-size: 32px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      /* margin-top: 40px; Adds space above header */
+       font-weight: 500;
+    }
+
+    header h1 {
+      font-size: 50px;
+      margin-bottom: 10px;
+       font-weight: 600;
+      
+    }
+
+    header p {
+      font-size: 18px;
+      color: #ccc;
+      /* padding: 10px 10px; */
+    }
+    .main-container {
+      display: flex;
+      justify-content: center;     
+      align-items: flex-start;     
+      gap: 40px;                  
+      flex-wrap: wrap;           
+    }
+/* Container holding the cards */
+.course-container {
+  display: flex;
+  gap: 15px;            /* space between cards */
+  flex-wrap: wrap;      /* wrap to next line if not enough space */
+  justify-content: center; /* center cards horizontally */
+  
+}
+
+/* Your existing card styles */
+.course-card {
+  flex: none;                    
+  width: 400px;  
+  height: 90px;                                
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  padding: 40px ;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20px;   
+  margin: auto;
+  text-align: center;
+  font-size: xx-large;
+  border-radius: 2rem;
+  border: 1px solid rgba(237, 213, 213, 0.1);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
+  
+}
+
+    .course-card:hover {
+      background-color:#9958de;
+    }
+
+    #selected-course-container{
+        justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+.top-logo {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 1000; /* Make sure it stays on top */
+}
+
+.top-logo img {
+  height: 120px; /* Adjust size as needed */
+  width: 120px;
+  object-fit: contain;
+  border-radius: 5rem;
+}
+    main {
+      width: 550px;
+        background: rgba(255, 255, 255, 0.1);
+       backdrop-filter: blur(15px);
+      padding: 2rem;
+      border-radius: 0.75rem;
+      text-align: center;
+            display: flex;
+      justify-content: center;     
+      flex-direction: column;  
+      gap: 10px;
+      margin: auto;
+  border: 1px solid white;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;
+    }
+    h2 {
+      font-weight: 800;
+      font-size: 2.5rem;
+      color: #e5e6e8;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      color: #ebeced;
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      margin-bottom: 1rem;
+      transition: border-color 0.3s ease;
+      color: #1e1e2f;
+    }
+    input[type="number"]:focus,
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+    button[type="submit"] {
+      margin-top: 1rem;
+      width: 100%;
+      background-color: #111827;
+      color: rgb(12, 12, 12);
+      font-weight: 700;
+      font-size: 1.125rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button[type="submit"]:hover {
+      background-color: #1e40af;
+    }
+    .info-text {
+      font-size: 0.9rem;
+      color: #f9fbfd;
+      margin-bottom: 1rem;
+    }
+
+    
+ .menu-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start; /* left aligned */
+      position: relative;
+    }
+    .menu-btn {
+      /* background-color: #f1eaea; */
+       background: rgba(255, 255, 255, 0.1);
+       backdrop-filter: blur(15px);
+      color:white;
+      border: none;
+      padding: 12px 25px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+         transition: all 0.3s ease;
+       border: 1px solid rgba(205, 184, 184, 0.1);
+      box-shadow: 0 0 15px rgba(188, 144, 229, 0.2);
+      
+    }
+        .menu-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      border-color:white;
+    }
+
+    .menu-links {
+      display: flex;
+      gap: 10px;
+      margin-left: 10px;
+    }
+
+    .menu-links a {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);;
+      padding: 10px 18px;
+      border-radius: 10px;
+        border-radius: 1.5rem;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(-20px) scale(0.7);
+      pointer-events: none;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+        
+    }
+
+    .menu-links.show a {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .menu-links.show a:nth-child(1) { transition-delay: 0.2s; }
+    .menu-links.show a:nth-child(2) { transition-delay: 0.5s; }
+    .menu-links.show a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links.show a:nth-child(4) { transition-delay: 0.8s; }
+    .menu-links.show a:nth-child(5) { transition-delay: 1.1s; }
+
+    .menu-links:not(.show) a:nth-child(1) { transition-delay: 1.1s; }
+    .menu-links:not(.show) a:nth-child(2) { transition-delay: 0.8s; }
+    .menu-links:not(.show) a:nth-child(3) { transition-delay: 0.7s; }
+    .menu-links:not(.show) a:nth-child(4) { transition-delay: 0.5s; }
+    .menu-links:not(.show) a:nth-child(5) { transition-delay: 0.2s; }
+
+    .menu-links a:hover {
+        background: rgba(255, 255, 255, 0.15);
+        box-shadow: 0 0 25px rgba(168, 85, 247, 0.3);
+      transform: translateY(-2px) scale(1.05);
+      border-color: white;
+    }
+        nav {
+      /* background-color: #343a40; */
+      padding: 10px 20px;
+      display: flex;
+      justify-content: flex-start;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      /* background-color: #ff6f61; */
+      transition: background 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #e85c50;
+    }
+
+
+    .limit-container {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+      padding: 30px 24px 24px 24px;
+      margin: auto;
+      width: 400px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: white;
+        border-radius: 2rem;
+  border: 1px solid rgb(198, 192, 192);
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
+  transition: all 0.3s ease;                               
+
+    }
+
+    .limit-container label {
+      font-size: 16px;
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 500;
+      color: white;
+      text-align: center;
+    }
+
+    .limit-container input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid black;
+      outline: none;
+      transition: border 0.2s;
+    }
+    .limit-container input:focus {
+      border: 1.5px solid #47236b;
+    }
+.limit-container button {
+  display: block;           /* Make button a block element */
+  margin: 0 auto;           /* Auto margins center it horizontally */
+  padding: 10px 20px;
+       background: #1e1e2f;
+       backdrop-filter: blur(15px);
+      color:white;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  /* transition: background 0.2s; */
+  border-radius: 1.5rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(205, 184, 184, 0.1);
+  box-shadow: 0 0 15px rgba(188, 144, 229, 0.2);
+}
+
+
+.limit-container button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+
+  <div class="top-logo">
+  <a href="{{ url_for('home') }}">
+    <img class="spin-horizontal"  src="{{ url_for('static', filename='ATTENDO.png') }}" alt="Logo" />
+  </a>
+</div>
+  <nav>
+    <button id="menu-btn" class="menu-btn">Menu</button>
+    <div id="menu-links" class="menu-links">
+      <a href="{{ url_for('take_attendance') }}">Take Attendance</a>
+      <a href="{{ url_for('home') }}">Log Out</a>
+    </div>
+  </nav>
+
+  <header>
+    <h1>Quick Attendance System</h1>
+    <p>Set limit of the scan for taking daily attendance</p>
+  </header>
+  <main>
+    <h2>Generate a QR Code with Scan Limit & Location</h2>
+    <form method="post" id="qrForm" novalidate class="limit-container">
+      <label for="scan_limit">Scan Limit</label>
+      <input type="number" id="scan_limit" name="scan_limit" min="1" required />
+
+      <label for="lat">Your Latitude (auto-filled if allowed)</label>
+      <input type="text" id="lat" name="lat" required readonly placeholder="Allow location access..." />
+
+      <label for="lon">Your Longitude (auto-filled if allowed)</label>
+      <input type="text" id="lon" name="lon" required readonly placeholder="Allow location access..." />
+
+      <p class="info-text" >Please allow location access, or enter your coordinates manually if denied.</p>
+
+      <button type="submit">Generate QR Code</button>
+    </form>
+  </main>
+
+  <script>
+    function fillLocation(position) {
+      document.getElementById('lat').value = position.coords.latitude.toFixed(6);
+      document.getElementById('lon').value = position.coords.longitude.toFixed(6);
+    }
+    function errorLocation(error) {
+      alert('Geolocation needed for precise scan validation: ' + error.message);
+      // Fallback: allow manual input by making fields editable
+      var latInput = document.getElementById('lat');
+      var lonInput = document.getElementById('lon');
+      latInput.removeAttribute('readonly');
+      lonInput.removeAttribute('readonly');
+      latInput.placeholder = "Enter latitude";
+      lonInput.placeholder = "Enter longitude";
+    }
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(fillLocation, errorLocation);
+    } else {
+      alert('Geolocation is not supported by your browser. Please input location manually.');
+      var latInput = document.getElementById('lat');
+      var lonInput = document.getElementById('lon');
+      latInput.removeAttribute('readonly');
+      lonInput.removeAttribute('readonly');
+      latInput.placeholder = "Enter latitude";
+      lonInput.placeholder = "Enter longitude";
+    }
+  </script>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": { "enable": true, "value_area": 800 }
+        },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": {
+          "value": 0.5,
+          "random": false
+        },
+        "size": {
+          "value": 3,
+          "random": true
+        },
+        "line_linked": {
+          "enable": true,
+          "distance": 150,
+          "color": "#ffffff",
+          "opacity": 0.4,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 3,
+          "direction": "none",
+          "out_mode": "out"
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": true, "mode": "repulse" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "repulse": { "distance": 100 },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+  <script>
+    const menuBtn = document.getElementById("menu-btn");
+    const menuLinks = document.getElementById("menu-links");
+
+    menuBtn.addEventListener("click", () => {
+      menuLinks.classList.toggle("show");
+    });
+  </script>
+</body>
+</html>
+
+
+
