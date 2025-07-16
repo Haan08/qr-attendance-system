@@ -20,6 +20,8 @@ import pandas as pd
 import psycopg2
 import psycopg2.extras
 import os
+from PIL import Image
+
 
 
 
