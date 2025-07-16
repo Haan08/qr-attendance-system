@@ -1,1 +1,1 @@
-web: gunicorn "PROJECT APP.main:app"
+web: gunicorn project_app.main:app
