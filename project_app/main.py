@@ -38,7 +38,7 @@ app.config.update(
 )
 mail = Mail(app)
 
-ALLOWED_DISTANCE_METERS = 300
+ALLOWED_DISTANCE_METERS = 400
 
 # DB connection
 def get_cursor():
